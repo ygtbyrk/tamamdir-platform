@@ -1,69 +1,85 @@
 "use client";
-import { useState } from "react";
+
+import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Star, ShoppingCart, X, MapPin, Clock } from "lucide-react";
 
-const temizlikFirmalariDetay: any = {
-  "temiz-evim": {
-    ad: "Temiz Evim",
-    aciklama: "Profesyonel ev ve ofis temizliği hizmetleri.",
-    logo: "/icons/temizlik.png",
+interface Product {
+  id: number;
+  isim: string;
+  aciklama: string;
+  fiyat: number;
+  img: string;
+}
+
+interface Review {
+  ad: string;
+  puan: number;
+  metin: string;
+}
+
+interface MarketData {
+  ad: string;
+  aciklama: string;
+  logo: string;
+  puan: number;
+  yorumSayisi: number;
+  acik: boolean;
+  minSepet: string;
+  adres: string;
+  saat: string;
+  etiketler: string[];
+  urunler: Product[];
+  yorumlar: Review[];
+}
+
+const marketVerileri: Record<string, MarketData> = {
+  anadolubakkal: {
+    ad: "Anadolu Bakkal",
+    aciklama: "Mahallenizin samimi bakkalı. Hızlı servis, uygun fiyat.",
+    logo: "/anadolu-bakkal.png",
     puan: 4.7,
-    yorumSayisi: 112,
+    yorumSayisi: 88,
     acik: true,
-    minSaat: "2 saat",
-    adres: "Kızılay Mah. Temizlik Sok. No:5",
-    saat: "08:00 - 20:00",
-    etiketler: ["Ev", "Ofis", "Koltuk"],
-    hizmetler: [
-      { id: 1, isim: "Ev Temizliği", aciklama: "Detaylı ev temizliği", fiyat: 300 },
-      { id: 2, isim: "Ofis Temizliği", aciklama: "Profesyonel ofis temizliği", fiyat: 400 },
-      { id: 3, isim: "Koltuk Temizliği", aciklama: "Derinlemesine koltuk temizliği", fiyat: 150 },
+    minSepet: "75 TL",
+    adres: "Yıldız Mah. Göztepe Sok. No:14/A",
+    saat: "08:00 - 23:00",
+    etiketler: ["Bakkal", "İçecek", "Çocuk Dostu"],
+    urunler: [
+      { id: 1, isim: "Sütaş Süt 1L", aciklama: "Günlük taze süt", fiyat: 42, img: "/sut.jpg" },
+      { id: 2, isim: "Coca-Cola 1L", aciklama: "Soğuk içecek", fiyat: 39, img: "/cola.jpg" },
+      { id: 3, isim: "Pınar Beyaz 180g", aciklama: "Kahvaltılık sürme", fiyat: 45, img: "/pinarbeyaz.jpg" },
+      { id: 4, isim: "Lay’s Patates Cipsi", aciklama: "Sade, 107g", fiyat: 37, img: "/cips.jpg" },
+      { id: 5, isim: "UNO Ekmek", aciklama: "Taze fırın ekmeği", fiyat: 19, img: "/ekmek.jpg" },
     ],
     yorumlar: [
-      { ad: "Elif D.", puan: 5, metin: "Temizlik çok iyi yapıldı, teşekkürler." },
-      { ad: "Ahmet B.", puan: 4, metin: "Zamanında geldiler, gayet profesyonel." },
-    ],
+      { ad: "Eren B.", puan: 5, metin: "Siparişim hızlı geldi, ürünler taze." },
+      { ad: "Tuğba G.", puan: 4, metin: "Çalışanlar çok ilgili, fiyatlar uygun." },
+      { ad: "Mehmet E.", puan: 5, metin: "Her şey eksiksiz ve güzel paketlenmişti." }
+    ]
   },
-  "hizli-temizlik": {
-    ad: "Hızlı Temizlik",
-    aciklama: "Acil temizlik hizmetleri, güvenilir ekip.",
-    logo: "/icons/hizli-temizlik.png",
-    puan: 4.9,
-    yorumSayisi: 78,
-    acik: true,
-    minSaat: "1 saat",
-    adres: "Bahçelievler Mah. Temizlik Cad. No:8",
-    saat: "07:00 - 22:00",
-    etiketler: ["Acil", "Güvenilir"],
-    hizmetler: [
-      { id: 1, isim: "Acil Ev Temizliği", aciklama: "Hızlı ve etkili temizlik", fiyat: 350 },
-      { id: 2, isim: "Cam Temizliği", aciklama: "Pencereleriniz pırıl pırıl", fiyat: 100 },
-    ],
-    yorumlar: [
-      { ad: "Selin Y.", puan: 5, metin: "Acil durumlar için mükemmel hizmet." },
-      { ad: "Deniz K.", puan: 4, metin: "Çok hızlı ve güvenilir." },
-    ],
-  },
-  // Diğer firmalar eklenebilir...
+  // İstersen başka marketler ekleyebilirsin
 };
 
-export default function TemizlikDetay({ params }: { params: { temizlikId: string } }) {
-  const data = temizlikFirmalariDetay[params.temizlikId] || null;
-  const [sepet, setSepet] = useState<any[]>([]);
+export default function MarketDetay({ params }: { params: Promise<{ marketId: string }> }) {
+  const { marketId } = React.use(params);
+
+  const data = marketVerileri[marketId] || null;
+  const [sepet, setSepet] = useState<Product[]>([]);
   const [sepetAcik, setSepetAcik] = useState(false);
 
   if (!data) {
     return (
       <main className="min-h-screen flex flex-col justify-center items-center bg-[#f5f8fc]">
-        <div className="text-xl text-[#058d92]">Firma bulunamadı.</div>
-        <Link href="/kategori/temizlik" className="text-[#035e65] mt-3 underline">Geri dön</Link>
+        <div className="text-xl text-[#058d92]">Market bulunamadı.</div>
+        <Link href="/kategori/market" className="text-[#035e65] mt-3 underline">Geri dön</Link>
       </main>
     );
   }
 
-  const sepeteEkle = (hizmet: any) => {
-    setSepet([...sepet, hizmet]);
+  const sepeteEkle = (urun: Product) => {
+    setSepet([...sepet, urun]);
     setSepetAcik(true);
   };
 
@@ -76,15 +92,16 @@ export default function TemizlikDetay({ params }: { params: { temizlikId: string
   return (
     <main className="min-h-screen bg-[#f5f8fc]">
       <div className="max-w-2xl mx-auto px-4 pt-8 pb-16">
-        <Link href="/kategori/temizlik" className="text-[#058d92] text-sm mb-3 inline-block">&larr; Tüm Temizlik Firmaları</Link>
+        <Link href="/kategori/market" className="text-[#058d92] text-sm mb-3 inline-block">&larr; Tüm Marketler</Link>
 
+        {/* Market Bilgisi */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 flex flex-col sm:flex-row gap-5 border border-[#e7edf4]">
-          <img src={data.logo || "/placeholder-clean.png"} alt={data.ad} className="w-24 h-24 rounded-2xl object-contain border border-[#e7edf4]" />
+          <Image src={data.logo} alt={data.ad} width={96} height={96} className="rounded-2xl object-cover border border-[#e7edf4]" />
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
               <h1 className="text-2xl font-bold text-[#035e65]">{data.ad}</h1>
               <span className={`px-2 py-1 rounded-lg text-xs font-bold ${data.acik ? "bg-[#d0fae4] text-[#0aa360]" : "bg-[#ffe5e5] text-[#c20d0d]"}`}>
-                {data.acik ? "Aktif" : "Kapalı"}
+                {data.acik ? "Açık" : "Kapalı"}
               </span>
             </div>
             <div className="flex items-center gap-2 text-[#f7b500] mb-2">
@@ -96,10 +113,10 @@ export default function TemizlikDetay({ params }: { params: { temizlikId: string
               <MapPin size={16} /> {data.adres}
             </div>
             <div className="flex items-center gap-2 text-[#6b7c91] text-xs">
-              <Clock size={14} /> {data.saat} <span className="mx-2">•</span> Minimum Süre: <b>{data.minSaat}</b>
+              <Clock size={14} /> {data.saat} <span className="mx-2">•</span> Min. Sepet: <b>{data.minSepet}</b>
             </div>
             <div className="flex gap-2 mt-1">
-              {data.etiketler.map((et: string, i: number) => (
+              {data.etiketler.map((et, i) => (
                 <span key={i} className="bg-[#e0f7fa] text-[#007c91] rounded px-2 py-0.5 text-xs font-medium">{et}</span>
               ))}
             </div>
@@ -107,19 +124,21 @@ export default function TemizlikDetay({ params }: { params: { temizlikId: string
           </div>
         </div>
 
+        {/* Ürünler */}
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-[#035e65] mb-3">Hizmetler</h2>
+          <h2 className="text-xl font-bold text-[#035e65] mb-3">Ürünler</h2>
           <div className="grid grid-cols-1 gap-4">
-            {data.hizmetler.map((hizmet: any, idx: number) => (
-              <div key={hizmet.id} className="flex items-center justify-between bg-white border border-[#e7edf4] rounded-xl p-4 shadow-sm">
-                <div>
-                  <div className="font-bold text-[#035e65]">{hizmet.isim}</div>
-                  <div className="text-xs text-[#607281]">{hizmet.aciklama}</div>
-                  <div className="text-[#058d92] font-bold">{hizmet.fiyat} TL</div>
+            {data.urunler.map((urun) => (
+              <div key={urun.id} className="flex items-center justify-between bg-white border border-[#e7edf4] rounded-xl p-4 shadow-sm">
+                <Image src={urun.img} alt={urun.isim} width={64} height={64} className="rounded-lg object-cover border border-[#e7edf4]" />
+                <div className="flex-1 ml-4">
+                  <div className="font-bold text-[#035e65]">{urun.isim}</div>
+                  <div className="text-xs text-[#607281]">{urun.aciklama}</div>
+                  <div className="text-[#058d92] font-bold">{urun.fiyat} TL</div>
                 </div>
                 <button
-                  onClick={() => sepeteEkle(hizmet)}
-                  className="ml-4 bg-[#058d92] hover:bg-[#035e65] text-white rounded-full px-3 py-2 text-xs font-bold flex items-center gap-1"
+                  onClick={() => sepeteEkle(urun)}
+                  className="ml-4 bg-[#058d92] hover:bg-[#035e65] text-white rounded-full px-3 py-2 text-xs font-bold flex items-center gap-1 transition-colors"
                 >
                   <ShoppingCart size={16} /> Sepete Ekle
                 </button>
@@ -128,11 +147,14 @@ export default function TemizlikDetay({ params }: { params: { temizlikId: string
           </div>
         </div>
 
+        {/* Sepet Paneli */}
         {sepetAcik && (
           <div className="fixed top-0 right-0 w-full sm:w-96 bg-white rounded-2xl shadow-2xl border border-[#e7edf4] z-30 p-5">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-lg font-bold text-[#035e65]">Sepetim</h3>
-              <button onClick={() => setSepetAcik(false)} className="text-[#607281]"><X size={22} /></button>
+              <button onClick={() => setSepetAcik(false)} className="text-[#607281]">
+                <X size={22} />
+              </button>
             </div>
             {sepet.length === 0 ? (
               <div className="text-[#607281] text-sm text-center py-8">Sepetiniz boş.</div>
@@ -155,24 +177,28 @@ export default function TemizlikDetay({ params }: { params: { temizlikId: string
               <span>Toplam</span>
               <span>{toplam} TL</span>
             </div>
-            <button className="w-full bg-[#058d92] text-white font-semibold py-2 rounded-full mt-1">Siparişi Onayla (Demo)</button>
+            <button className="w-full bg-[#058d92] text-white font-semibold py-2 rounded-full mt-1">
+              Siparişi Onayla (Demo)
+            </button>
           </div>
         )}
 
-        {/* Yorumlar */}
+        {/* Müşteri Yorumları */}
         <div className="mt-12">
           <h2 className="text-xl font-bold text-[#035e65] mb-2">Son Yorumlar</h2>
           <div className="space-y-3">
-            {data.yorumlar.map((y: any, i: number) => (
+            {data.yorumlar.map((y, i) => (
               <div
                 key={i}
                 className="bg-white border border-[#e7edf4] rounded-xl p-4 shadow flex items-center gap-3"
                 style={{ color: "#232832" }}
               >
-                <img
+                <Image
                   src={`https://randomuser.me/api/portraits/thumb/${i % 2 === 0 ? "women" : "men"}/${20 + i}.jpg`}
-                  className="w-10 h-10 rounded-full border border-[#e7edf4]"
-                  alt="Kullanıcı avatar"
+                  alt={y.ad}
+                  width={40}
+                  height={40}
+                  className="rounded-full border border-[#e7edf4]"
                 />
                 <div>
                   <div className="flex items-center gap-1">
@@ -186,8 +212,8 @@ export default function TemizlikDetay({ params }: { params: { temizlikId: string
             ))}
           </div>
         </div>
-
       </div>
+
       {/* Footer */}
       <footer className="text-center mb-4 text-[#a1a6b3] text-xs border-t pt-3">
         <div>
@@ -199,7 +225,9 @@ export default function TemizlikDetay({ params }: { params: { temizlikId: string
           <span className="mx-2">|</span>
           <a href="mailto:info@tamamdirapp.com" className="underline">Mail</a>
           <span className="mx-2">|</span>
-          <a href="https://instagram.com/tamamdirapp" target="_blank">Instagram</a>
+          <a href="https://instagram.com/tamamdirapp" target="_blank" rel="noreferrer">
+            Instagram
+          </a>
         </div>
       </footer>
     </main>

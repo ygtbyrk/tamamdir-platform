@@ -12,6 +12,9 @@ const categories = [
   { icon: "/icons/key-set.png", label: "Çilingir", url: "/kategori/cilingir" },
 ];
 
+// Market sayfasından alınan renk geçişi ve font (turkuaz-sarı tonlar)
+const marketSloganGradient = "bg-gradient-to-r from-[#005555] via-[#007a7a] to-[#00b3b3]";
+
 export default function Home() {
   const [aramaMetni, setAramaMetni] = useState("");
 
@@ -32,7 +35,7 @@ export default function Home() {
             tamamdır
           </span>
         </Link>
-        {/* Sağ üst linkler - modern butonlar */}
+        {/* Sağ üst linkler */}
         <div className="flex gap-4 items-center font-semibold text-sm">
           <a
             href="https://wa.me/905451164506"
@@ -41,17 +44,7 @@ export default function Home() {
             className="text-[#25D366] hover:bg-[#25D366] hover:text-white px-4 py-2 rounded-lg transition duration-300 shadow-sm flex items-center gap-2"
             style={{ fontFamily: "inherit" }}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16 8a6 6 0 11-12 0 6 6 0 0112 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16 14l4 4m0 0l-4 4m4-4H8" />
-            </svg>
+            <Search className="text-white" size={20} />
             WhatsApp
           </a>
 
@@ -69,10 +62,15 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* ANA EKRAN */}
+      {/* ANA EKRAN - SLOGAN market renk geçişi ve fontu ile */}
       <section
-        className="relative flex flex-col items-center justify-center pt-14 pb-16 bg-gradient-to-br from-[#e7f2ff] via-[#f8fafc] to-[#fffbe6] overflow-hidden"
-        style={{ minHeight: "560px" }}
+        className={`
+          relative flex flex-col items-center justify-center
+          pt-14 pb-14 overflow-hidden
+          ${marketSloganGradient}
+          w-full
+          min-h-[220px]
+        `}
       >
         {/* Ankara şehir silüeti */}
         <img
@@ -82,11 +80,20 @@ export default function Home() {
         />
 
         {/* Başlık + Arama */}
-        <div className="flex flex-col items-center z-10 w-full max-w-xl">
-          <h1 className="text-3xl md:text-5xl font-black text-[#035e65] text-center mb-7 leading-tight">
-            Ankara’da bugün <span className="text-[#ffb901]">neye ihtiyacın var?</span>
+        <div className="flex flex-col items-center z-10 w-full max-w-xl px-6">
+          <h1
+            className="text-4xl md:text-6xl font-black text-white text-center leading-tight"
+            style={{ letterSpacing: "-0.02em", lineHeight: 1, fontFamily: "'League Spartan', sans-serif" }}
+          >
+            Ankara’da bugün{" "}
+            <span
+              className="font-extrabold text-[#ffb901]"
+              style={{ filter: "drop-shadow(0 0 3px rgba(0,0,0,0.3))" }}
+            >
+              neye ihtiyacın var?
+            </span>
           </h1>
-          <div className="w-full flex items-center bg-white rounded-3xl shadow-md px-6 py-5 gap-4 border-2 border-[#e3e8f4] focus-within:border-[#008080] focus-within:shadow-[0_0_10px_#008080aa] transition-shadow duration-300">
+          <div className="w-full mt-8 flex items-center bg-white rounded-3xl shadow-md px-6 py-5 gap-4 border-2 border-[#e3e8f4] focus-within:border-[#008080] focus-within:shadow-[0_0_10px_#008080aa] transition-shadow duration-300">
             <Search className="text-[#008080]" size={32} />
             <input
               type="text"
@@ -141,7 +148,10 @@ export default function Home() {
       </div>
 
       {/* Ankara Fotoğrafı Alt Kısmı */}
-      <div className="relative w-full max-w-6xl mx-auto mb-8 overflow-hidden rounded-3xl shadow-lg" style={{ height: 180 }}>
+      <div
+        className="relative w-full max-w-6xl mx-auto mb-8 overflow-hidden rounded-3xl shadow-lg"
+        style={{ height: 180 }}
+      >
         <img
           src="/img/ankara-photoo.jpg"
           alt="Ankara Fotoğrafı Alt Kısmı"

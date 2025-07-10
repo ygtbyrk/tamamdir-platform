@@ -1,99 +1,120 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { Star, ChevronLeft } from "lucide-react";
 
-const ustalar = [
+const ustaGradient = "bg-gradient-to-r from-[#0d1f3c] via-[#1b305b] to-[#2c467d]"; // Koyu ama canlı mavi tonları
+
+interface Usta {
+  id: string;
+  isim: string;
+  aciklama: string;
+  logo: string;
+  puan: number;
+  yorumSayisi: number;
+  kapali?: boolean;
+}
+
+const ustalar: Usta[] = [
   {
-    id: "usta-ahmet",
-    ad: "Usta Ahmet",
-    aciklama: "Elektrik, su, tesisat ve boya işleri konusunda deneyimli usta.",
-    icon: "/icons/tools.png",
+    id: "usta-ali",
+    isim: "Usta Ali",
+    aciklama: "Elektrik, tesisat ve tamirat işleri.",
+    logo: "/usta-ali.png",
     puan: 4.9,
-    yorumSayisi: 95,
-    acik: true,
-    etiketler: ["Elektrik", "Su", "Boya"],
+    yorumSayisi: 45,
   },
   {
     id: "usta-mehmet",
-    ad: "Usta Mehmet",
-    aciklama: "Alanında uzman, güvenilir tadilat ustası.",
-    icon: "/icons/tools2.png",
-    puan: 4.7,
-    yorumSayisi: 73,
-    acik: true,
-    etiketler: ["Tadilat", "Boyacı"],
+    isim: "Usta Mehmet",
+    aciklama: "Mobilya ve dekorasyon ustası.",
+    logo: "/usta-mehmet.png",
+    puan: 4.6,
+    yorumSayisi: 33,
   },
-  // Daha fazla usta ekleyebilirsin
 ];
 
-export default function UstaListesi() {
+export default function UstaPage() {
   return (
-    <main className="min-h-screen bg-[#f5f8fc] pb-8">
-      <section className="container mx-auto max-w-4xl px-4">
-        {/* Ana Sayfa butonu */}
-        <div className="mb-6 flex justify-start">
+    <main className="min-h-screen bg-[#f8fafc] py-10 px-6 flex flex-col items-center">
+      {/* Geri Dön */}
+      <div className="max-w-[1280px] w-full mb-8">
+        <Link
+          href="/"
+          className="inline-flex items-center text-[#2c467d] font-semibold hover:text-[#1b305b] transition-colors"
+          aria-label="Ana sayfaya geri dön"
+        >
+          <ChevronLeft size={24} />
+          <span className="ml-2">Geri Dön</span>
+        </Link>
+      </div>
+
+      {/* Slogan Kutusu */}
+      <header
+        className={`${ustaGradient} w-full mb-16 py-8 px-6 sm:px-16 rounded-3xl shadow-2xl flex justify-center select-none`}
+      >
+        <h1
+          className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg leading-tight tracking-tight max-w-[900px] text-center"
+          style={{ fontFamily: "'League Spartan', sans-serif" }}
+        >
+          Ankara’da bugün{" "}
+          <span className="text-[#7fb3ff] font-extrabold">neye ihtiyacın var?</span>
+        </h1>
+      </header>
+
+      {/* Kartlar */}
+      <div className="max-w-[1280px] w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-2 sm:px-0">
+        {ustalar.map((usta) => (
           <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-[#058d92] font-semibold hover:text-[#035e65] transition"
+            key={usta.id}
+            href={`/kategori/usta/${usta.id}`}
+            className={`
+              relative flex flex-col items-center p-5 rounded-2xl
+              bg-gradient-to-br from-white to-[#f0f7ff]
+              shadow-lg border border-transparent
+              cursor-pointer
+              transition-transform duration-400 ease-in-out
+              hover:shadow-2xl hover:border-[#7fb3ff]
+              hover:-translate-y-2 hover:scale-[1.05]
+              max-w-full
+              mx-auto
+              min-w-[180px]
+              focus:outline-none focus-visible:ring-4 focus-visible:ring-[#7fb3ff]/70
+            `}
+            aria-label={`${usta.isim} detay sayfası`}
           >
-            <ArrowLeft size={20} />
-            Geri
+            <div
+              className="relative w-20 h-20 mb-5 rounded-xl border border-[#a9c8ff] bg-[#e7f0ff] flex justify-center items-center
+              transition-transform duration-300 ease-in-out group-hover:scale-110"
+            >
+              <img
+                src={usta.logo}
+                alt={`${usta.isim} logosu`}
+                className="w-16 h-16 object-contain"
+                loading="lazy"
+                draggable={false}
+              />
+            </div>
+
+            <h2 className="text-xl font-extrabold text-[#2c467d] mb-1 text-center truncate w-full">
+              {usta.isim}
+            </h2>
+            <p className="text-[#47649f] text-sm text-center line-clamp-3 min-h-[45px] mb-3 px-3">
+              {usta.aciklama}
+            </p>
+            <div className="flex items-center gap-1 text-[#7fb3ff] font-semibold select-none justify-center mb-3">
+              <Star className="h-5 w-5 fill-current" />
+              <span className="text-lg">{usta.puan.toFixed(1)}</span>
+              <span className="text-gray-400 text-xs">({usta.yorumSayisi} yorum)</span>
+            </div>
           </Link>
-        </div>
+        ))}
+      </div>
 
-        <header className="text-center py-10 mb-7">
-          <h1 className="text-4xl font-extrabold text-[#035e65] mb-1 tracking-tight">Ustalar</h1>
-          <p className="text-[#058d92] text-lg font-semibold mb-2">Güvenilir ve deneyimli ustalar burada!</p>
-          <p className="text-[#607281] text-base font-medium mb-2">
-            İhtiyacınız olan ustayı seçin, iletişime geçin ve işinizi kolayca halledin.
-          </p>
-        </header>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7 mb-12">
-          {ustalar.map((usta) => (
-            <Link key={usta.id} href={`/kategori/usta/${usta.id}`}>
-              <div
-                className="bg-white border border-[#e7edf4] rounded-2xl shadow-md px-7 py-8 flex flex-col items-center text-center 
-                transition-transform duration-150 ease-out hover:scale-105 hover:shadow-2xl cursor-pointer"
-                style={{ color: "#232832" }}
-              >
-                <img
-                  src={usta.icon || "/icons/tools.png"}
-                  alt={usta.ad}
-                  className="w-14 h-14 mb-3 rounded-xl object-contain border border-[#e7edf4]"
-                  loading="lazy"
-                  draggable={false}
-                />
-                <div className="font-bold text-lg text-[#035e65] mb-1">{usta.ad}</div>
-                <div className="text-sm text-[#444b54] mb-1">{usta.aciklama}</div>
-                <div className="flex items-center gap-1 text-[#f7b500] text-xs font-semibold justify-center mb-2">
-                  <span>★ {usta.puan}</span>
-                  <span className="text-[#607281]">({usta.yorumSayisi})</span>
-                  <span
-                    className={`ml-2 px-2 py-0.5 rounded ${
-                      usta.acik ? "bg-[#d0fae4] text-[#0aa360]" : "bg-[#ffe5e5] text-[#c20d0d]"
-                    }`}
-                  >
-                    {usta.acik ? "Aktif" : "Kapalı"}
-                  </span>
-                </div>
-                <div className="flex gap-1 flex-wrap justify-center">
-                  {usta.etiketler.map((et, i) => (
-                    <span key={i} className="bg-[#e0f7fa] text-[#007c91] rounded px-2 py-0.5 text-xs font-medium">
-                      {et}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        <footer className="mt-8 pb-4 text-center text-[#a1a6b3] text-xs border-t border-[#e8ecee] pt-3">
-          <div>© {new Date().getFullYear()} Tamamdır | Powered by Tamamdır Teknoloji A.Ş. | info@tamamdirapp.com</div>
-        </footer>
-      </section>
+      {/* Footer */}
+      <footer className="w-full max-w-[1280px] mt-auto border-t border-gray-300 py-5 text-center text-sm text-gray-600 font-light select-none">
+        © {new Date().getFullYear()} Tamamdır | Powered by TamamdırApp
+      </footer>
     </main>
   );
 }

@@ -1,75 +1,127 @@
 "use client";
-import Link from "next/link";
 
-const cilingirciler = [
+import Link from "next/link";
+import { Star, ChevronLeft } from "lucide-react";
+
+const sloganGradient = "bg-gradient-to-r from-[#093028] via-[#237a57] to-[#43cea2]";
+
+interface Cilingir {
+  id: string;
+  isim: string;
+  aciklama: string;
+  logo: string;
+  puan: number;
+  yorumSayisi: number;
+  kapali?: boolean;
+}
+
+const cilingirler: Cilingir[] = [
   {
-    id: "anahtarci-murat",
-    ad: "Anahtarcı Murat",
-    aciklama: "Hızlı ve güvenilir çilingir hizmetleri.",
-    icon: "/icons/cilingir.png",
-    puan: 4.9,
-    yorum: 98,
-    acik: true,
-    etiketler: ["Acil", "7/24"],
+    id: "cilingir-usta",
+    isim: "Çilingir Usta",
+    aciklama: "Acil kapı açma ve güvenlik sistemleri.",
+    logo: "/cilingir-usta.png",
+    puan: 4.7,
+    yorumSayisi: 29,
   },
   {
-    id: "kilitci-elif",
-    ad: "Kilitçi Elif",
-    aciklama: "Kilit değişimi, açma ve bakım hizmetleri.",
-    icon: "/icons/kilitci.png",
-    puan: 4.7,
-    yorum: 76,
-    acik: true,
-    etiketler: ["Profesyonel", "Güvenilir"],
+    id: "anahtarci",
+    isim: "Anahtarcı",
+    aciklama: "Hızlı ve güvenilir anahtar hizmetleri.",
+    logo: "/anahtarci.png",
+    puan: 4.5,
+    yorumSayisi: 18,
+    kapali: true,
   },
 ];
 
-export default function CilingirKategori() {
+export default function CilingirPage() {
   return (
-    <main className="min-h-screen bg-[#f5f8fc] pb-0">
-      <section className="container mx-auto max-w-4xl px-4">
-        <div className="my-4">
-          <Link href="/" className="text-[#035e65] underline text-sm font-semibold">
-            &larr; Ana Sayfa
-          </Link>
-        </div>
-        <header className="text-center py-10 mb-7">
-          <div className="text-4xl font-extrabold text-[#035e65] mb-1 tracking-tight">Çilingir Hizmetleri</div>
-          <div className="text-[#058d92] text-lg font-semibold mb-2">Ankara’nın en güvenilir çilingirleri!</div>
-          <div className="text-[#607281] text-base font-medium mb-2">
-            Kapı açma, kilit değişimi ve acil hizmetler.
-          </div>
-        </header>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-7 mb-12">
-          {cilingirciler.map((cil) => (
-            <Link href={`/kategori/cilingir/${cil.id}`} key={cil.id}>
-              <div
-                className="bg-white border border-[#e7edf4] rounded-2xl shadow-md px-7 py-8 flex flex-col items-center text-center transition-transform duration-150 ease-out hover:scale-105 hover:shadow-2xl cursor-pointer"
-                style={{ color: "#232832" }}
-              >
-                <img src={cil.icon} alt={cil.ad} className="w-14 h-14 mb-3 rounded-xl object-contain border border-[#e7edf4]" />
-                <div className="font-bold text-lg text-[#035e65] mb-1">{cil.ad}</div>
-                <div className="text-sm text-[#444b54] mb-1">{cil.aciklama}</div>
-                <div className="flex items-center gap-1 text-[#f7b500] text-xs font-semibold justify-center mb-2">
-                  <span>★ {cil.puan}</span>
-                  <span className="text-[#607281]">({cil.yorum})</span>
-                  <span className={`ml-2 px-2 py-0.5 rounded ${cil.acik ? "bg-[#d0fae4] text-[#0aa360]" : "bg-[#ffe5e5] text-[#c20d0d]"}`}>
-                    {cil.acik ? "Aktif" : "Kapalı"}
-                  </span>
-                </div>
-                <div className="flex gap-1 flex-wrap justify-center">
-                  {cil.etiketler.map((et, i) => (
-                    <span key={i} className="bg-[#e0f7fa] text-[#007c91] rounded px-2 py-0.5 text-xs font-medium">{et}</span>
-                  ))}
-                </div>
+    <main className="min-h-screen bg-[#f8fafc] py-10 px-6 flex flex-col items-center">
+      {/* Geri Dön */}
+      <div className="max-w-[1280px] w-full mb-8">
+        <Link
+          href="/"
+          className="inline-flex items-center text-[#195946] font-semibold hover:text-[#134a3b] transition-colors"
+          aria-label="Ana sayfaya geri dön"
+        >
+          <ChevronLeft size={24} />
+          <span className="ml-2">Geri Dön</span>
+        </Link>
+      </div>
+
+      {/* Slogan Kutusu */}
+      <header
+        className={`${sloganGradient} w-full mb-16 py-10 px-6 sm:px-16 rounded-3xl shadow-2xl flex justify-center select-none`}
+      >
+        <h1
+          className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg leading-tight tracking-tight max-w-[900px] text-center"
+          style={{ fontFamily: "'League Spartan', sans-serif" }}
+        >
+          Ankara’da bugün <span className="text-[#ffb901]">neye ihtiyacın var?</span>
+        </h1>
+      </header>
+
+      {/* Kartlar */}
+      <div className="max-w-[1280px] w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-2 sm:px-0">
+        {cilingirler.map((cilingir) => (
+          <Link
+            key={cilingir.id}
+            href={`/kategori/cilingir/${cilingir.id}`}
+            className={`
+              relative flex flex-col items-center p-5 rounded-2xl
+              bg-gradient-to-br from-white to-[#f0fcfc]
+              shadow-lg border border-transparent
+              cursor-pointer
+              transition-transform duration-400 ease-in-out
+              hover:shadow-2xl hover:border-[#43cea2]
+              hover:-translate-y-2 hover:scale-[1.05]
+              max-w-full
+              mx-auto
+              min-w-[180px]
+              focus:outline-none focus-visible:ring-4 focus-visible:ring-[#43cea2]/70
+            `}
+            aria-label={`${cilingir.isim} detay sayfası`}
+          >
+            <div
+              className="relative w-20 h-20 mb-5 rounded-xl border border-[#3dbd94] bg-[#bbf0db] flex justify-center items-center
+              transition-transform duration-300 ease-in-out group-hover:scale-110"
+            >
+              <img
+                src={cilingir.logo}
+                alt={`${cilingir.isim} logosu`}
+                className="w-16 h-16 object-contain"
+                loading="lazy"
+                draggable={false}
+              />
+            </div>
+
+            <h2 className="text-xl font-extrabold text-[#195946] mb-1 text-center truncate w-full">
+              {cilingir.isim}
+            </h2>
+            <p className="text-[#134a3b] text-sm text-center line-clamp-3 min-h-[45px] mb-3 px-3">
+              {cilingir.aciklama}
+            </p>
+            <div className="flex items-center gap-1 text-[#43cea2] font-semibold select-none justify-center mb-3">
+              <Star className="h-5 w-5 fill-current" />
+              <span className="text-lg">{cilingir.puan.toFixed(1)}</span>
+              <span className="text-gray-400 text-xs">({cilingir.yorumSayisi} yorum)</span>
+            </div>
+
+            {/* Kapalı Etiketi */}
+            {cilingir.kapali && (
+              <div className="absolute top-3 right-3 bg-[#c20d0d] text-white font-bold px-3 py-1 rounded-full text-sm shadow-lg select-none z-20">
+                Kapalı
               </div>
-            </Link>
-          ))}
-        </div>
-        <footer className="mt-8 pb-4 text-center text-[#a1a6b3] text-xs border-t border-[#e8ecee] pt-3">
-          <div>© {new Date().getFullYear()} Tamamdır | Powered by Tamamdır Teknoloji A.Ş. | info@tamamdirapp.com</div>
-        </footer>
-      </section>
+            )}
+          </Link>
+        ))}
+      </div>
+
+      {/* Footer */}
+      <footer className="w-full max-w-[1280px] mt-auto border-t border-gray-300 py-5 text-center text-sm text-gray-600 font-light select-none">
+        © {new Date().getFullYear()} Tamamdır | Powered by TamamdırApp
+      </footer>
     </main>
   );
 }
