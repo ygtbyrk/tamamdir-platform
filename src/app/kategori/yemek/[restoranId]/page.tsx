@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { Star, ChevronLeft } from "lucide-react";
 
 interface Yemek {
@@ -35,19 +35,19 @@ const yemekler: Yemek[] = [
 
 interface Props {
   params: {
-    restoranId: string;
+    yemekId: string;
   };
 }
 
-export default function RestoranDetail({ params }: Props) {
-  const { restoranId } = params;
+export default async function YemekDetail({ params }: Props) {
+  const { yemekId } = params;
 
-  const restoran = yemekler.find((r) => r.id === restoranId);
+  const yemek = yemekler.find((y) => y.id === yemekId);
 
-  if (!restoran) {
+  if (!yemek) {
     return (
       <main className="min-h-screen flex flex-col items-center justify-center p-10">
-        <p className="text-xl font-semibold">Restoran bulunamadı.</p>
+        <p className="text-xl font-semibold">Yemek bulunamadı.</p>
         <Link href="/kategori/yemek" className="mt-4 text-blue-600 underline">
           Geri dön
         </Link>
@@ -73,20 +73,20 @@ export default function RestoranDetail({ params }: Props) {
       <div className="max-w-[1280px] w-full bg-white rounded-3xl shadow-lg p-8 flex flex-col md:flex-row gap-8">
         <div className="relative w-40 h-40 rounded-xl border border-[#fcd299] bg-[#fff7ea]">
           <Image
-            src={restoran.logo}
-            alt={`${restoran.isim} logosu`}
+            src={yemek.logo}
+            alt={`${yemek.isim} logosu`}
             fill
             style={{ objectFit: "contain" }}
             priority
           />
         </div>
         <div className="flex flex-col justify-center">
-          <h1 className="text-4xl font-extrabold text-[#a60e2b] mb-4">{restoran.isim}</h1>
-          <p className="text-[#7a0b20] text-lg mb-4">{restoran.aciklama}</p>
+          <h1 className="text-4xl font-extrabold text-[#a60e2b] mb-4">{yemek.isim}</h1>
+          <p className="text-[#7a0b20] text-lg mb-4">{yemek.aciklama}</p>
           <div className="flex items-center gap-2 text-[#fbb03b] font-semibold">
             <Star className="h-6 w-6 fill-current" />
-            <span className="text-2xl">{restoran.puan.toFixed(1)}</span>
-            <span className="text-gray-400 text-sm">({restoran.yorumSayisi} yorum)</span>
+            <span className="text-2xl">{yemek.puan.toFixed(1)}</span>
+            <span className="text-gray-400 text-sm">({yemek.yorumSayisi} yorum)</span>
           </div>
         </div>
       </div>

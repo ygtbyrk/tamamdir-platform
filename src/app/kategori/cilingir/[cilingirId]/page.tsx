@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { Star, ChevronLeft } from "lucide-react";
 
 interface Cilingir {
@@ -40,7 +40,7 @@ interface Props {
   };
 }
 
-export default function CilingirDetail({ params }: Props) {
+export default async function CilingirDetail({ params }: Props) {
   const { cilingirId } = params;
 
   const cilingir = cilingirler.find((c) => c.id === cilingirId);

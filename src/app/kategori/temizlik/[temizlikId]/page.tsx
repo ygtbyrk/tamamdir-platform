@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { Star, ChevronLeft } from "lucide-react";
 
 interface Temizlik {
@@ -40,7 +40,7 @@ interface Props {
   };
 }
 
-export default function TemizlikDetail({ params }: Props) {
+export default async function TemizlikDetail({ params }: Props) {
   const { temizlikId } = params;
 
   const temizlik = temizlikler.find((t) => t.id === temizlikId);

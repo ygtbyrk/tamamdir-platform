@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { Star, ChevronLeft } from "lucide-react";
 
 interface Usta {
@@ -39,7 +39,7 @@ interface Props {
   };
 }
 
-export default function UstaDetailPage({ params }: Props) {
+export default async function UstaDetail({ params }: Props) {
   const { ustaId } = params;
 
   const usta = ustalar.find((u) => u.id === ustaId);
@@ -69,7 +69,7 @@ export default function UstaDetailPage({ params }: Props) {
         </Link>
       </div>
 
-      {/* Usta Detay */}
+      {/* Detay */}
       <div className="max-w-[1280px] w-full bg-white rounded-3xl shadow-lg p-8 flex flex-col md:flex-row gap-8">
         <div className="relative w-40 h-40 rounded-xl border border-[#a9c8ff] bg-[#e7f0ff]">
           <Image

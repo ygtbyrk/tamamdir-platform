@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import { Star, ChevronLeft } from "lucide-react";
 
 interface Oto {
@@ -39,7 +39,7 @@ interface Props {
   };
 }
 
-export default function OtoDetail({ params }: Props) {
+export default async function OtoDetail({ params }: Props) {
   const { otoId } = params;
 
   const oto = otolar.find((o) => o.id === otoId);
