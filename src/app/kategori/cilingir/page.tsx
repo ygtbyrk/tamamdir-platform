@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Star, ChevronLeft } from "lucide-react";
 
 const sloganGradient = "bg-gradient-to-r from-[#093028] via-[#237a57] to-[#43cea2]";
@@ -17,20 +18,20 @@ interface Cilingir {
 
 const cilingirler: Cilingir[] = [
   {
-    id: "cilingir-usta",
-    isim: "Çilingir Usta",
-    aciklama: "Acil kapı açma ve güvenlik sistemleri.",
-    logo: "/cilingir-usta.png",
+    id: "anahtarci",
+    isim: "Anahtarcı Usta",
+    aciklama: "Kapı açma, kilit değiştirme hizmetleri.",
+    logo: "/anahtarci.png",
     puan: 4.7,
-    yorumSayisi: 29,
+    yorumSayisi: 40,
   },
   {
-    id: "anahtarci",
-    isim: "Anahtarcı",
-    aciklama: "Hızlı ve güvenilir anahtar hizmetleri.",
-    logo: "/anahtarci.png",
-    puan: 4.5,
-    yorumSayisi: 18,
+    id: "kilitci-usta",
+    isim: "Kilitçi Usta",
+    aciklama: "Acil çilingir hizmetleri.",
+    logo: "/cilingir-usta.png",
+    puan: 4.6,
+    yorumSayisi: 28,
     kapali: true,
   },
 ];
@@ -42,7 +43,7 @@ export default function CilingirPage() {
       <div className="max-w-[1280px] w-full mb-8">
         <Link
           href="/"
-          className="inline-flex items-center text-[#195946] font-semibold hover:text-[#134a3b] transition-colors"
+          className="inline-flex items-center text-[#556ee6] font-semibold hover:text-[#2e3bb5] transition-colors"
           aria-label="Ana sayfaya geri dön"
         >
           <ChevronLeft size={24} />
@@ -70,45 +71,45 @@ export default function CilingirPage() {
             href={`/kategori/cilingir/${cilingir.id}`}
             className={`
               relative flex flex-col items-center p-5 rounded-2xl
-              bg-gradient-to-br from-white to-[#f0fcfc]
+              bg-gradient-to-br from-white to-[#f0f3ff]
               shadow-lg border border-transparent
               cursor-pointer
               transition-transform duration-400 ease-in-out
-              hover:shadow-2xl hover:border-[#43cea2]
+              hover:shadow-2xl hover:border-[#6c7efd]
               hover:-translate-y-2 hover:scale-[1.05]
               max-w-full
               mx-auto
               min-w-[180px]
-              focus:outline-none focus-visible:ring-4 focus-visible:ring-[#43cea2]/70
+              focus:outline-none focus-visible:ring-4 focus-visible:ring-[#6c7efd]/70
             `}
             aria-label={`${cilingir.isim} detay sayfası`}
           >
             <div
-              className="relative w-20 h-20 mb-5 rounded-xl border border-[#3dbd94] bg-[#bbf0db] flex justify-center items-center
+              className="relative w-20 h-20 mb-5 rounded-xl border border-[#afbfff] bg-[#d7dbff] flex justify-center items-center
               transition-transform duration-300 ease-in-out group-hover:scale-110"
             >
-              <img
+              <Image
                 src={cilingir.logo}
                 alt={`${cilingir.isim} logosu`}
-                className="w-16 h-16 object-contain"
-                loading="lazy"
+                width={64}
+                height={64}
                 draggable={false}
+                priority
               />
             </div>
 
-            <h2 className="text-xl font-extrabold text-[#195946] mb-1 text-center truncate w-full">
+            <h2 className="text-xl font-extrabold text-[#556ee6] mb-1 text-center truncate w-full">
               {cilingir.isim}
             </h2>
-            <p className="text-[#134a3b] text-sm text-center line-clamp-3 min-h-[45px] mb-3 px-3">
+            <p className="text-[#4051a0] text-sm text-center line-clamp-3 min-h-[45px] mb-3 px-3">
               {cilingir.aciklama}
             </p>
-            <div className="flex items-center gap-1 text-[#43cea2] font-semibold select-none justify-center mb-3">
+            <div className="flex items-center gap-1 text-[#6c7efd] font-semibold select-none justify-center mb-3">
               <Star className="h-5 w-5 fill-current" />
               <span className="text-lg">{cilingir.puan.toFixed(1)}</span>
               <span className="text-gray-400 text-xs">({cilingir.yorumSayisi} yorum)</span>
             </div>
 
-            {/* Kapalı Etiketi */}
             {cilingir.kapali && (
               <div className="absolute top-3 right-3 bg-[#c20d0d] text-white font-bold px-3 py-1 rounded-full text-sm shadow-lg select-none z-20">
                 Kapalı

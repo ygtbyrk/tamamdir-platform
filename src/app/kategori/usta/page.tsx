@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Star, ChevronLeft } from "lucide-react";
 
-const ustaGradient = "bg-gradient-to-r from-[#0d1f3c] via-[#1b305b] to-[#2c467d]"; // Koyu ama canlı mavi tonları
+const ustaGradient = "bg-gradient-to-r from-[#0d1f3c] via-[#1b305b] to-[#2c467d]";
 
 interface Usta {
   id: string;
@@ -87,11 +88,12 @@ export default function UstaPage() {
               className="relative w-20 h-20 mb-5 rounded-xl border border-[#a9c8ff] bg-[#e7f0ff] flex justify-center items-center
               transition-transform duration-300 ease-in-out group-hover:scale-110"
             >
-              <img
+              <Image
                 src={usta.logo}
                 alt={`${usta.isim} logosu`}
-                className="w-16 h-16 object-contain"
-                loading="lazy"
+                width={64}
+                height={64}
+                priority
                 draggable={false}
               />
             </div>

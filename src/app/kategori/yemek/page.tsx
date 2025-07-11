@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Star, ChevronLeft } from "lucide-react";
 
-const yemekGradient = "bg-gradient-to-r from-[#c1272d] via-[#fbb03b] to-[#fcee21]"; 
-// sol kısım kırmızımsı (#c1272d), orta sarı-turuncu, sağ sarı (#fcee21)
+const sloganGradient = "bg-gradient-to-r from-[#c1272d] via-[#fbb03b] to-[#fcee21]";
 
 interface Yemek {
   id: string;
@@ -42,7 +42,7 @@ export default function YemekPage() {
       <div className="max-w-[1280px] w-full mb-8">
         <Link
           href="/"
-          className="inline-flex items-center text-[#d35400] font-semibold hover:text-[#a24300] transition-colors"
+          className="inline-flex items-center text-[#a60e2b] font-semibold hover:text-[#7a071a] transition-colors"
           aria-label="Ana sayfaya geri dön"
         >
           <ChevronLeft size={24} />
@@ -52,19 +52,13 @@ export default function YemekPage() {
 
       {/* Slogan Kutusu */}
       <header
-        className={`${yemekGradient} w-full mb-16 py-8 px-6 sm:px-16 rounded-3xl shadow-2xl flex justify-center select-none`}
+        className={`${sloganGradient} w-full mb-16 py-10 px-6 sm:px-16 rounded-3xl shadow-2xl flex justify-center select-none`}
       >
         <h1
-          className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg leading-tight tracking-tight max-w-[900px] text-center"
-          style={{ fontFamily: "'League Spartan', sans-serif" }}
+          className="text-3xl sm:text-4xl md:text-5xl font-extrabold drop-shadow-lg leading-tight tracking-tight max-w-[900px] text-center"
+          style={{ fontFamily: "'League Spartan', sans-serif", color: "#7a3e0c" }}
         >
-          Ankara’da bugün{" "}
-          <span
-            className="font-extrabold text-[#4a2e00]"
-            style={{ textShadow: "1px 1px 3px rgba(255,255,255,0.6)" }}
-          >
-            neye ihtiyacın var?
-          </span>
+          Ankara’da bugün <span className="text-white drop-shadow-md">neye ihtiyacın var?</span>
         </h1>
       </header>
 
@@ -93,19 +87,20 @@ export default function YemekPage() {
               className="relative w-20 h-20 mb-5 rounded-xl border border-[#fcd299] bg-[#fff7ea] flex justify-center items-center
               transition-transform duration-300 ease-in-out group-hover:scale-110"
             >
-              <img
+              <Image
                 src={yemek.logo}
                 alt={`${yemek.isim} logosu`}
-                className="w-16 h-16 object-contain"
-                loading="lazy"
+                width={64}
+                height={64}
                 draggable={false}
+                priority
               />
             </div>
 
-            <h2 className="text-xl font-extrabold text-[#a86000] mb-1 text-center truncate w-full">
+            <h2 className="text-xl font-extrabold text-[#a60e2b] mb-1 text-center truncate w-full">
               {yemek.isim}
             </h2>
-            <p className="text-[#7a4e00] text-sm text-center line-clamp-3 min-h-[45px] mb-3 px-3">
+            <p className="text-[#7a0b20] text-sm text-center line-clamp-3 min-h-[45px] mb-3 px-3">
               {yemek.aciklama}
             </p>
             <div className="flex items-center gap-1 text-[#fbb03b] font-semibold select-none justify-center mb-3">

@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Star, ChevronLeft } from "lucide-react";
 
-const otoGradient = "bg-gradient-to-r from-[#2a3b4d] via-[#405a77] to-[#1e2e43]"; // Dayanıklı, koyu mavi-gri tonları
+const sloganGradient = "bg-gradient-to-r from-[#003973] via-[#e5e5be] to-[#008793]";
 
 interface Oto {
   id: string;
@@ -17,20 +18,20 @@ interface Oto {
 
 const otolar: Oto[] = [
   {
-    id: "oto-kurtarma",
-    isim: "Oto Kurtarma",
-    aciklama: "7/24 yol yardım ve kurtarma hizmeti.",
-    logo: "/oto-kurtarma.png",
-    puan: 4.9,
-    yorumSayisi: 37,
-  },
-  {
     id: "oto-boyama",
     isim: "Oto Boyama",
-    aciklama: "Profesyonel araç boyama ve kaporta.",
+    aciklama: "Araç boya ve kaporta hizmetleri.",
     logo: "/oto-boyama.png",
-    puan: 4.7,
-    yorumSayisi: 29,
+    puan: 4.5,
+    yorumSayisi: 27,
+  },
+  {
+    id: "oto-kurtarma",
+    isim: "Oto Kurtarma",
+    aciklama: "Yol yardım ve kurtarma hizmetleri.",
+    logo: "/oto-kurtarma.png",
+    puan: 4.6,
+    yorumSayisi: 35,
   },
 ];
 
@@ -41,7 +42,7 @@ export default function OtoPage() {
       <div className="max-w-[1280px] w-full mb-8">
         <Link
           href="/"
-          className="inline-flex items-center text-[#405a77] font-semibold hover:text-[#2a3b4d] transition-colors"
+          className="inline-flex items-center text-[#00474f] font-semibold hover:text-[#002a30] transition-colors"
           aria-label="Ana sayfaya geri dön"
         >
           <ChevronLeft size={24} />
@@ -51,14 +52,13 @@ export default function OtoPage() {
 
       {/* Slogan Kutusu */}
       <header
-        className={`${otoGradient} w-full mb-16 py-8 px-6 sm:px-16 rounded-3xl shadow-2xl flex justify-center select-none`}
+        className={`${sloganGradient} w-full mb-16 py-10 px-6 sm:px-16 rounded-3xl shadow-2xl flex justify-center select-none`}
       >
         <h1
           className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg leading-tight tracking-tight max-w-[900px] text-center"
           style={{ fontFamily: "'League Spartan', sans-serif" }}
         >
-          Ankara’da bugün{" "}
-          <span className="text-[#b3c7d9] font-extrabold">neye ihtiyacın var?</span>
+          Ankara’da bugün <span className="text-[#ffb901]">neye ihtiyacın var?</span>
         </h1>
       </header>
 
@@ -70,39 +70,40 @@ export default function OtoPage() {
             href={`/kategori/oto/${oto.id}`}
             className={`
               relative flex flex-col items-center p-5 rounded-2xl
-              bg-gradient-to-br from-white to-[#f7f9fc]
+              bg-gradient-to-br from-white to-[#f0f7f8]
               shadow-lg border border-transparent
               cursor-pointer
               transition-transform duration-400 ease-in-out
-              hover:shadow-2xl hover:border-[#b3c7d9]
+              hover:shadow-2xl hover:border-[#00bcd4]
               hover:-translate-y-2 hover:scale-[1.05]
               max-w-full
               mx-auto
               min-w-[180px]
-              focus:outline-none focus-visible:ring-4 focus-visible:ring-[#b3c7d9]/70
+              focus:outline-none focus-visible:ring-4 focus-visible:ring-[#00bcd4]/70
             `}
             aria-label={`${oto.isim} detay sayfası`}
           >
             <div
-              className="relative w-20 h-20 mb-5 rounded-xl border border-[#c4d0dd] bg-[#eff5fb] flex justify-center items-center
+              className="relative w-20 h-20 mb-5 rounded-xl border border-[#a6d1da] bg-[#d6f0f5] flex justify-center items-center
               transition-transform duration-300 ease-in-out group-hover:scale-110"
             >
-              <img
+              <Image
                 src={oto.logo}
                 alt={`${oto.isim} logosu`}
-                className="w-16 h-16 object-contain"
-                loading="lazy"
+                width={64}
+                height={64}
                 draggable={false}
+                priority
               />
             </div>
 
-            <h2 className="text-xl font-extrabold text-[#405a77] mb-1 text-center truncate w-full">
+            <h2 className="text-xl font-extrabold text-[#00474f] mb-1 text-center truncate w-full">
               {oto.isim}
             </h2>
-            <p className="text-[#6e829e] text-sm text-center line-clamp-3 min-h-[45px] mb-3 px-3">
+            <p className="text-[#003637] text-sm text-center line-clamp-3 min-h-[45px] mb-3 px-3">
               {oto.aciklama}
             </p>
-            <div className="flex items-center gap-1 text-[#b3c7d9] font-semibold select-none justify-center mb-3">
+            <div className="flex items-center gap-1 text-[#00bcd4] font-semibold select-none justify-center mb-3">
               <Star className="h-5 w-5 fill-current" />
               <span className="text-lg">{oto.puan.toFixed(1)}</span>
               <span className="text-gray-400 text-xs">({oto.yorumSayisi} yorum)</span>

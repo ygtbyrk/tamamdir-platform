@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Star, ChevronLeft } from "lucide-react";
 
 const sloganGradient = "bg-gradient-to-r from-[#00b4db] via-[#0083b0] to-[#00f2fe]";
@@ -52,7 +53,7 @@ export default function TemizlikPage() {
 
       {/* Slogan Kutusu */}
       <header
-        className={`${sloganGradient} w-full max-w-[1280px] mb-16 py-10 px-6 sm:px-16 rounded-3xl shadow-2xl flex justify-center select-none`}
+        className={`${sloganGradient} w-full mb-16 py-10 px-6 sm:px-16 rounded-3xl shadow-2xl flex justify-center select-none`}
       >
         <h1
           className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white drop-shadow-lg leading-tight tracking-tight max-w-[900px] text-center"
@@ -87,12 +88,13 @@ export default function TemizlikPage() {
               className="relative w-20 h-20 mb-5 rounded-xl border border-[#9ee7ff] bg-[#e0f7ff] flex justify-center items-center
               transition-transform duration-300 ease-in-out group-hover:scale-110"
             >
-              <img
+              <Image
                 src={temizlik.logo}
                 alt={`${temizlik.isim} logosu`}
-                className="w-16 h-16 object-contain"
-                loading="lazy"
+                width={64}
+                height={64}
                 draggable={false}
+                priority
               />
             </div>
 
@@ -108,7 +110,6 @@ export default function TemizlikPage() {
               <span className="text-gray-400 text-xs">({temizlik.yorumSayisi} yorum)</span>
             </div>
 
-            {/* Kapalı Etiketi */}
             {temizlik.kapali && (
               <div className="absolute top-3 right-3 bg-[#c20d0d] text-white font-bold px-3 py-1 rounded-full text-sm shadow-lg select-none z-20">
                 Kapalı
