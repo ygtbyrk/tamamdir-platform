@@ -59,11 +59,15 @@ const marketVerileri: Record<string, MarketData> = {
       { ad: "Mehmet E.", puan: 5, metin: "Her şey eksiksiz ve güzel paketlenmişti." }
     ]
   },
-  // İstersen başka marketler ekleyebilirsin
+  // Başka marketler eklenebilir...
 };
 
-export default function MarketDetay({ params }: { params: Promise<{ marketId: string }> }) {
-  const { marketId } = React.use(params);
+interface Props {
+  params: { marketId: string };
+}
+
+export default function MarketDetay({ params }: Props) {
+  const { marketId } = params;
 
   const data = marketVerileri[marketId] || null;
   const [sepet, setSepet] = useState<Product[]>([]);

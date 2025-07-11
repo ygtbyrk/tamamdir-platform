@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Star, ChevronLeft } from "lucide-react";
 
 const sloganGradient = "bg-gradient-to-r from-[#a0e9d8] via-[#bdf3e9] to-[#f9f7e8]";
@@ -98,10 +99,12 @@ export default function MarketListe() {
               className="relative w-20 h-20 mb-5 rounded-xl border border-[#b7ded7] bg-[#d2f0e7] flex justify-center items-center
               transition-transform duration-300 ease-in-out group-hover:scale-110"
             >
-              <img
+              <Image
                 src={market.logo}
                 alt={`${market.isim} logosu`}
-                className="w-16 h-16 object-contain"
+                width={64}
+                height={64}
+                className="object-contain"
                 loading="lazy"
                 draggable={false}
               />
@@ -123,11 +126,13 @@ export default function MarketListe() {
             {market.urunGorselleri && market.urunGorselleri.length > 0 && (
               <div className="flex gap-2 mt-2 justify-center w-full px-3">
                 {market.urunGorselleri.map((img, i) => (
-                  <img
+                  <Image
                     key={i}
                     src={img}
                     alt={`${market.isim} ürün ${i + 1}`}
-                    className="w-12 h-12 rounded-lg object-cover shadow-sm border border-gray-200"
+                    width={48}
+                    height={48}
+                    className="rounded-lg object-cover shadow-sm border border-gray-200"
                     loading="lazy"
                     draggable={false}
                   />

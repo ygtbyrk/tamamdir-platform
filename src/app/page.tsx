@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image"; // import eklendi
 import { Search } from "lucide-react";
 import { useState } from "react";
 
@@ -27,7 +28,14 @@ export default function Home() {
       {/* NAVBAR */}
       <nav className="w-full flex justify-between items-center px-8 py-5 bg-white shadow-sm sticky top-0 z-30">
         <Link href="/" className="flex items-center gap-3">
-          <img src="/tamamdirlogo.png" alt="Tamamdır" className="w-14 h-14 rounded-xl border" />
+          <Image
+            src="/tamamdirlogo.png"
+            alt="Tamamdır"
+            width={56}
+            height={56}
+            className="rounded-xl border"
+            priority
+          />
           <span
             className="font-league font-light lowercase text-4xl tracking-tight"
             style={{ color: "#008080", letterSpacing: "-0.03em", lineHeight: 1 }}
@@ -73,10 +81,13 @@ export default function Home() {
         `}
       >
         {/* Ankara şehir silüeti */}
-        <img
+        <Image
           src="/img/ankara-siluet.svg"
           alt="Ankara Silüeti"
           className="absolute left-1/2 top-0 -translate-x-1/2 opacity-10 w-[95vw] pointer-events-none select-none"
+          width={1000}
+          height={200}
+          priority
         />
 
         {/* Başlık + Arama */}
@@ -118,10 +129,12 @@ export default function Home() {
                   "
                   style={{ minWidth: 90, minHeight: 90 }}
                 >
-                  <img
+                  <Image
                     src={cat.icon}
                     alt={cat.label}
-                    className="mb-2 w-12 h-12 object-contain"
+                    width={48}
+                    height={48}
+                    className="mb-2 object-contain"
                     loading="lazy"
                     draggable={false}
                   />
@@ -152,17 +165,21 @@ export default function Home() {
         className="relative w-full max-w-6xl mx-auto mb-8 overflow-hidden rounded-3xl shadow-lg"
         style={{ height: 180 }}
       >
-        <img
+        <Image
           src="/img/ankara-photoo.jpg"
           alt="Ankara Fotoğrafı Alt Kısmı"
-          className="w-full object-cover"
-          style={{ height: "100%", objectPosition: "center 90%" }}
+          fill
+          style={{ objectFit: "cover", objectPosition: "center 90%" }}
+          priority
         />
-        <img
+        <Image
           src="/img/ataturk.png"
           alt="Atatürk PNG"
-          className="absolute bottom-0 left-5 w-51"
+          width={200}
+          height={100}
+          className="absolute bottom-0 left-5"
           style={{ filter: "drop-shadow(2px 4px 3px rgba(0,0,0,0.3))" }}
+          priority
         />
       </div>
 
