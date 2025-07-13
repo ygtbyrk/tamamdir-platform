@@ -1,5 +1,5 @@
 {
   "buildCommand": "next build || true",
   "outputDirectory": ".next",
-  "ignoreCommand": "echo 'Ignoring ESLint and TypeScript errors'"
+  "ignoreCommand": ""
 }
