@@ -1,11 +1,3 @@
 {
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/page": "app/page.js",
-  "/kategori/oto/page": "app/kategori/oto/page.js",
-  "/esnaf/page": "app/esnaf/page.js",
-  "/kategori/cilingir/page": "app/kategori/cilingir/page.js",
-  "/giris/page": "app/giris/page.js",
-  "/kayit/page": "app/kayit/page.js",
-  "/kategori/yemek/page": "app/kategori/yemek/page.js",
-  "/kategori/usta/page": "app/kategori/usta/page.js"
+  "/esnaf/page": "app/esnaf/page.js"
 }
