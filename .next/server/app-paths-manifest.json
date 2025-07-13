@@ -1,19 +1,11 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/cerezler/page": "app/cerezler/page.js",
-  "/esnaf/page": "app/esnaf/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/giris/page": "app/giris/page.js",
-  "/kategori/cilingir/page": "app/kategori/cilingir/page.js",
-  "/kategori/ev-ici-hizmetler/page": "app/kategori/ev-ici-hizmetler/page.js",
-  "/kategori/market/page": "app/kategori/market/page.js",
+  "/page": "app/page.js",
   "/kategori/oto/page": "app/kategori/oto/page.js",
-  "/kategori/temizlik/page": "app/kategori/temizlik/page.js",
-  "/kategori/usta/[ustaId]/page": "app/kategori/usta/[ustaId]/page.js",
-  "/kategori/usta/page": "app/kategori/usta/page.js",
-  "/kategori/yemek/[restoranId]/page": "app/kategori/yemek/[restoranId]/page.js",
-  "/kategori/yemek/page": "app/kategori/yemek/page.js",
+  "/esnaf/page": "app/esnaf/page.js",
+  "/kategori/cilingir/page": "app/kategori/cilingir/page.js",
+  "/giris/page": "app/giris/page.js",
   "/kayit/page": "app/kayit/page.js",
-  "/kvkk/page": "app/kvkk/page.js",
-  "/page": "app/page.js"
+  "/kategori/yemek/page": "app/kategori/yemek/page.js",
+  "/kategori/usta/page": "app/kategori/usta/page.js"
 }

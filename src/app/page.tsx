@@ -3,7 +3,8 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import { Search, ChevronRight, ChevronLeft } from "lucide-react";
+import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+
 
 const categories = [
   { icon: "/icons/fast-food.png", label: "Yemek", url: "/kategori/yemek" },
@@ -27,12 +28,10 @@ export default function Home() {
   const [aramaMetni, setAramaMetni] = useState("");
   const router = useRouter();
   const scrollRef = useRef(null);
-  const [searchSuggestions, setSearchSuggestions] = useState([]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!e.target.closest(".autocomplete-container")) {
-        setSearchSuggestions([]);
       }
     };
     document.addEventListener("click", handleClickOutside);

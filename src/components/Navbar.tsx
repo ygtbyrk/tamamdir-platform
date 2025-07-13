@@ -4,10 +4,9 @@ import { useState, useRef, useEffect } from "react";
 import {
   Menu,
   X,
-  Search,
   User,
   LogIn as LogInIcon,
-  PlusSquare as PlusSquareIcon
+  PlusSquare as PlusSquareIcon,
 } from "lucide-react";
 
 export default function Navbar() {
@@ -16,8 +15,8 @@ export default function Navbar() {
 
   // Dışarı tıklanınca menüyü kapat
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !(menuRef.current as any).contains(event.target)) {
         setMenuOpen(false);
       }
     };
@@ -45,25 +44,23 @@ export default function Navbar() {
 
       {/* WhatsApp Butonu (Mobil) */}
       <div className="md:hidden flex items-center ml-3">
-  <a
-  href="https://wa.me/905451164506?text=WhatsApp%20Üzerinden%20Devam%20Etmek%20İstiyorum!"
-  target="_blank"
-    rel="noopener noreferrer"
-    className="flex flex-col items-center justify-center px-3 py-[6px] rounded-xl shadow-md text-[11px] font-league font-extrabold bg-gradient-to-r from-[#005555] via-[#007a7a] to-[#00b3b3] hover:scale-105 transition-all duration-300"
-    style={{ minWidth: "80px", maxWidth: "95px", lineHeight: "1.1" }}
-  >
-    <img
-  src="/icons/whatsapp.png"
-  alt="WhatsApp"
-  className="w-4 h-4 mb-[2px] drop-shadow-[0_0_4px_rgba(255,255,255,0.4)]"
-/>
-
-    <span className="text-white leading-tight text-center">
-      WhatsApp İle
-      <br />
-      <span className="text-[#ffb901]">Devam Et</span>
-    </span>
-  </a>
+        <a
+          href="https://wa.me/905451164506?text=WhatsApp%20Üzerinden%20Devam%20Etmek%20İstiyorum!"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col items-center justify-center px-3 py-[6px] rounded-xl shadow-md text-[11px] font-league font-extrabold bg-gradient-to-r from-[#005555] via-[#007a7a] to-[#00b3b3] hover:scale-105 transition-all duration-300"
+          style={{ minWidth: "80px", maxWidth: "95px", lineHeight: "1.1" }}
+        >
+          <img
+            src="/icons/whatsapp.png"
+            alt="WhatsApp"
+            className="w-4 h-4 mb-[2px] drop-shadow-[0_0_4px_rgba(255,255,255,0.4)]"
+          />
+          <span className="text-white leading-tight text-center">
+            WhatsApp İle<br />
+            <span className="text-[#ffb901]">Devam Et</span>
+          </span>
+        </a>
       </div>
 
       {/* Hamburger */}
@@ -73,21 +70,21 @@ export default function Navbar() {
 
       {/* Masaüstü Menü */}
       <div className="hidden md:flex gap-3 items-center font-semibold text-sm">
-        {/* Web için WhatsApp Butonu */}
         <a
-  href="https://wa.me/905451164506?text=WhatsApp%20Üzerinden%20Devam%20Etmek%20İstiyorum!"
-  target="_blank"
-  className="bg-gradient-to-r from-[#005555] via-[#007a7a] to-[#00b3b3] text-white text-sm font-spartan font-bold px-5 py-3 rounded-xl shadow hover:opacity-90 transition-all flex flex-col items-center justify-center"
->
-  <img
-    src="/icons/whatsapp.png"
-    alt="WhatsApp"
-    className="w-5 h-5 mb-1 drop-shadow-[0_0_5px_rgba(255,255,255,0.4)]"
-  />
-  <span className="leading-tight text-white">
-    WhatsApp İle<br /><span className="text-[#ffb901]">Devam Et</span>
-  </span>
-</a>
+          href="https://wa.me/905451164506?text=WhatsApp%20Üzerinden%20Devam%20Etmek%20İstiyorum!"
+          target="_blank"
+          className="bg-gradient-to-r from-[#005555] via-[#007a7a] to-[#00b3b3] text-white text-sm font-spartan font-bold px-5 py-3 rounded-xl shadow hover:opacity-90 transition-all flex flex-col items-center justify-center"
+        >
+          <img
+            src="/icons/whatsapp.png"
+            alt="WhatsApp"
+            className="w-5 h-5 mb-1 drop-shadow-[0_0_5px_rgba(255,255,255,0.4)]"
+          />
+          <span className="leading-tight text-white">
+            WhatsApp İle<br />
+            <span className="text-[#ffb901]">Devam Et</span>
+          </span>
+        </a>
 
         <Link href="/giris" className="flex items-center gap-2 text-[#058d92] hover:bg-[#058d92] hover:text-white px-4 py-2 rounded-full">
           <LogInIcon size={18} /> Giriş
